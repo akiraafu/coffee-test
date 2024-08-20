@@ -7,7 +7,7 @@
 body {
   background-color: #c6d7de;
   font-family: "Montserrat";
-  padding: 3em;
+  /* padding: 3em; */
 }
 
 #video {
@@ -16,6 +16,7 @@ body {
   right: 0;
   width: 100vw;
   height: 100vh;
+  object-fit: cover;
 }
 
 #set-height {
