@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="container">
+      <div class="content">
+        <h1>Scroll to begin</h1>
+        <p>Let's make latte art</p>
+      </div>
+    </section>
+    <section class="container">
+      <div class="content">
+        <h1>step 1</h1>
+        <p>Let's make latte art</p>
+      </div>
+    </section>
+    <section class="container">
+      <div class="content">
+        <h1>step 2</h1>
+        <p>Let's make latte art</p>
+      </div>
+    </section>
+    <section class="container">
+      <div class="content">
+        <h1>step 3</h1>
+        <p>Let's make latte art</p>
+      </div>
+    </section>
+    <section class="container">
+      <div class="content">
+        <h1>step 4</h1>
+        <p>Let's make latte art</p>
+      </div>
+    </section>
+
+    <div id="set-height"></div>
+    <video id="video" tabindex="0" , autobuffer preload>
+      <source
+        src="coffee.mp4"
+        type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"'
+      />
+    </video>
+
+    <script src="sticky.js"></script>
+    <script>
+      // Scroll-triggered CSS animation
+      enterView({
+        selector: "section",
+        enter: function (el) {
+          el.classList.add("entered");
+        },
+      });
+
+      // Variables for video scroll interaction
+      let frameNumber = 0;
+      const playbackConst = 850;
+      const setHeight = document.getElementById("set-height");
+      const vid = document.getElementById("video");
+
+      // Set the page height based on video duration
+      vid.addEventListener("loadedmetadata", function () {
+        setHeight.style.height =
+          Math.floor(vid.duration) * playbackConst + "px";
+      });
+
+      // Smooth scroll playback
+      let isScrolling = false;
+
+      function scrollPlay() {
+        if (!isScrolling) {
+          isScrolling = true;
+          requestAnimationFrame(() => {
+            const frameNumber = window.pageYOffset / playbackConst;
+            if (vid.currentTime !== frameNumber) {
+              vid.currentTime = frameNumber;
+            }
+            isScrolling = false;
+          });
+        }
+      }
+
+      window.addEventListener("scroll", scrollPlay);
+    </script>
+  </body>
+</html>
